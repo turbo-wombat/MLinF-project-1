@@ -1,0 +1,40 @@
+# LLM Interactions Log — MIT 15.C51 Project #1 (Proprietary Momentum Strategy)
+#
+# This file is the verbatim source-attribution artifact referenced in Appendix A
+# of the Investment Committee Memorandum. Every significant prompt issued to
+# Claude Code during this project is recorded here with a timestamp and a
+# one-line summary of how the output was used.
+#
+# Format:
+#   [YYYY-MM-DD HH:MM TZ] model=<model-id>
+#   PROMPT:
+#     <user prompt, verbatim>
+#   ACTION:
+#     <one-line summary of what was done with the output>
+#   ---
+
+[2026-04-20 session-start] model=claude-opus-4-7[1m]
+PROMPT:
+  Please read @PROMPT.md in full and execute it. This is the complete spec for
+  the project. Start with Section 1 (Reference Files) and confirm scope before
+  writing any code. Also: create llm_interactions.log in the repo root on turn
+  1. After every significant instruction I give you, append a timestamped entry
+  with my prompt and a one-line summary of what you did with it. This is for
+  Appendix A source attribution — the grading rubric awards 25 points for it.
+ACTION:
+  Created this log file. Read MomentumBasedStrategy.ipynb and
+  15.C51-2026-Project1.pdf in full. Produced a one-paragraph scope confirmation
+  covering universe, horizon, deliverable, constraints, and grading axes. No
+  code written yet — awaiting user approval before scaffolding the new
+  notebook.
+---
+[2026-04-20 stage-0-begin] model=claude-opus-4-7[1m]
+PROMPT:
+  Confirmed. Please store this scope as well for future reference. Let's begin
+ACTION:
+  Persisted confirmed scope to project memory. Beginning Stage 0: scaffolding
+  ProprietaryMomentumStrategy.ipynb with empty Stage 0–7 markdown headers and
+  implementing Setup & Reproducibility (pinned seeds, RUN_CONFIG single source
+  of truth, version prints for required libs, matplotlib rcParams, dependency
+  install cell). Will commit as stage-0 when the scaffold is in place.
+---
