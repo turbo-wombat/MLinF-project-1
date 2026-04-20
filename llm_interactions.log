@@ -108,5 +108,18 @@ ACTION:
   (source attribution including PROMPT.md and this log rendered
   verbatim at cell-execution time via `open().read()`), Appendix B
   (iteration_log rendered from the live DataFrame). Strategy named
-  "Blue-Chip Absolute Momentum (BCAM)".
+  "Blue-Chip Absolute Momentum (BCAM)". Committed as stage-7 (2677874).
+
+  Final polish: replaced em-dash placeholders in ICM §4 stats table
+  with precise values pulled from the Stage-3 leaderboard (Sortino
+  1.08, longest-underwater 249 d, hit rate 60.9%, FF3 MKT/SMB/HML
+  betas 0.785 / -0.140 / +0.264, NW t-stat +1.37). Audited the
+  PROMPT.md §7 completion checklist — all 12 items pass. Committed
+  as final (fa74e17) and chore: gitignore results.pkl (2054fad,
+  noted 16.8 MB exceeded the 5 MB commit-threshold).
+
+  Project complete. Fourteen stage-tagged commits on top of the
+  initial commit. Deliverables: ProprietaryMomentumStrategy.ipynb
+  (3.1 MB with executed outputs), PROMPT.md (frozen), CLAUDE.md,
+  MomentumBasedStrategy.ipynb (baseline reference), this log.
 ---
