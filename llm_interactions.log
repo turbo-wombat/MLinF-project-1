@@ -37,4 +37,76 @@ ACTION:
   implementing Setup & Reproducibility (pinned seeds, RUN_CONFIG single source
   of truth, version prints for required libs, matplotlib rcParams, dependency
   install cell). Will commit as stage-0 when the scaffold is in place.
+
+  Under auto-mode continuation: built Stage 1 (data layer) on the same turn —
+  pure functions for constituent-map reconstruction, yfinance pull, FRED DTB3
+  risk-free; data_validation_report; two-panel universe-composition viz.
+  Smoke-tested against live data (37 tickers × 2515 days, no in-tenure gaps
+  > 10 days). Committed as stage-0 (81aba83) and stage-1 (66e2f0a).
+
+  Under continued auto-mode, built Stage 2 (strategy zoo) in six sub-commits
+  per PROMPT.md §6 step 4 ("one strategy at a time, commit every ~3"):
+    stage-2a  12386cd  helpers + classical CS mom 1-3
+    stage-2b  ef8d76a  TSMOM + dual + vol-scaled TSMOM 4-6
+    stage-2c  2fbf82a  risk-adjusted + residual + industry-neutral 7-9
+    stage-2d  95404f2  reversal overlay + acceleration + vol-confirmed 10-12
+    stage-2e  3a99393  HMM regime-gated + XGBoost-stacked 13-14  (with a
+                       post-fit patch snapping HMM regime scale to monthly
+                       rebalance cadence — otherwise daily state flicker
+                       ballooned OOS turnover from 11x/yr to 240x/yr)
+    stage-2f  bd5efd9  ensemble of ranks 15 + master verification cell
+  All 15 strategies smoke-tested against live data; sanity invariants
+  (market-neutral, |gross| ≤ 2, NaN-free) pass for every L/S variant.
+  Full-sample Sharpe leader: tsmom_abs 0.60 (long-only); laggard:
+  acceleration −0.74. Stage 3 will redo this ranking under expanding-
+  window walk-forward evaluation.
+
+  Built Stage 3 (evaluation framework + walk-forward OOS leaderboard) —
+  single evaluate() returning 25+ metrics, FF3 daily factors from Ken
+  French library, block-bootstrap Sharpe CI, Newey-West t-stat, pickle
+  checkpoint. Smoke-tested end-to-end; cs_mom_12_1 OOS Sharpe -0.55
+  with CI [-1.33, 0.25], FF3 α -15.1% (t=-1.79). Committed as
+  stage-3 (ec3201e).
+
+  Executed notebook end-to-end via `jupyter nbconvert --execute` to
+  produce the real leaderboard. Top-5 by OOS Sharpe: tsmom_abs (0.56),
+  tsmom_vol_scaled (0.03), hmm_regime (-0.42), cs_mom_risk_adj (-0.42),
+  industry_neutral (-0.43). Only tsmom_abs approaches the EW-DJIA
+  benchmark Sharpe of 0.68. Built Stage 4 (seven-panel diagnostic
+  tearsheets per strategy — log-cumulative vs benchmarks, rolling
+  12m Sharpe, underwater, monthly turnover, return distribution with
+  KDE overlay, monthly return heatmap, FF3 exposure bars with 95%
+  CIs) applied to the top 5. Committed as stage-4 (5493093).
+
+  Built Stage 5 (iteration loop) with four rounds following PROMPT.md
+  §3's Diagnose/Propose/Implement/Compare/Decide template:
+    R1  vol targeting       → Δ Sharpe -0.17  REVERT
+    R2  market-neutral hedge→ Δ Sharpe -1.97  REVERT
+    R3  EWMA momentum signal→ Δ Sharpe -1.95  REVERT
+    R4  HMM regime scaling  → Δ Sharpe -0.40  REVERT
+  All four rounds regressed on OOS Sharpe; the long-only TSMOM carried
+  the day in this equity tape because any reduced-exposure variant
+  paid more in lost beta than it saved in alpha. Final pole stays at
+  tsmom_abs (Sharpe 0.561). Documented verbatim in the ICM iteration
+  diary; this is Appendix B. Committed as stage-5 (49b0537).
+
+  Built Stage 6 (seven-probe robustness battery on tsmom_abs): cost
+  sensitivity 0-20 bps (Sharpe 0.59 → 0.54, robust), rebalance cadence
+  W/M/Q (quarterly 0.59 actually edges monthly 0.56 with half the
+  turnover), lookback ±20% (signal asymmetric — robust to +20%,
+  degrades at -20%), subperiod stability (weakness concentrated in
+  2022-23 at Sharpe 0.10), Monte-Carlo 1000-path block bootstrap
+  (median 2-yr +24.4%, P(loss) 13.2%), stress periods (COVID,
+  2022 bear, SVB) — outperformed EW-DJIA in broad sell-offs but not
+  in credit-specific events, and a back-of-envelope capacity estimate.
+  Committed as stage-6 (867a278).
+
+  Wrote Stage 7 (Investment Committee Memorandum) as pure markdown
+  cells: header + 1-Executive Summary, 2-Strategy Description &
+  Rationale, 3-P&L Conditions, 4-Statistical Properties, 5-10-Year
+  Performance Review, 6-Risk Factors, 7-Recommendation, Appendix A
+  (source attribution including PROMPT.md and this log rendered
+  verbatim at cell-execution time via `open().read()`), Appendix B
+  (iteration_log rendered from the live DataFrame). Strategy named
+  "Blue-Chip Absolute Momentum (BCAM)".
 ---
