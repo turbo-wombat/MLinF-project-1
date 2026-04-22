@@ -1,0 +1,21 @@
+BEST HYPERPARAMETERS  (Optuna TPE)
+========================================
+rsi_period     : 2
+rebal_freq     : 2
+lambda_long    : 1.044844853178489
+lambda_short   : 0.5675080545635757
+top_n_long     : 20
+top_n_short    : 5
+gross_short    : 0.4
+
+PERFORMANCE METRICS  (test 2022-2026, held out)
+========================================
+sharpe              : 0.6291
+sortino             : 0.9102
+cagr_%              : 7.31
+bench_cagr_%        : 10.94
+max_drawdown_%      : -14.00
+cumulative_%        : 35.10
+long_leg_%          : 63.83
+short_leg_%         : -10.14
+short_kill_days     : 3

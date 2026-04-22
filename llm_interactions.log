@@ -123,3 +123,69 @@ ACTION:
   (3.1 MB with executed outputs), PROMPT.md (frozen), CLAUDE.md,
   MomentumBasedStrategy.ipynb (baseline reference), this log.
 ---
+[2026-04-20 pt2-pt3-begin] model=claude-opus-4-7[1m]
+PROMPT:
+  Read PROMPT2.md in the project root and execute every instruction in it
+  exactly as written. Treat it as the complete specification for this task — do
+  not deviate, skip phases, or reinterpret. If anything in PROMPT2.md is
+  ambiguous, ask me before proceeding rather than guessing.
+ACTION:
+  Read PROMPT2.md (four-phase spec: analyse Pt2, recommend, build Pt3,
+  explain Pt3). Read MomBased_Pt2.ipynb end-to-end and re-read the PDF
+  rubric. Starting Phase 1 — producing results/Pt2_explanation.md with a
+  plain-English executive summary plus a 1500-2500-word deep-dive that
+  defines finance/ML terms on first use, walks the pipeline stage-by-
+  stage (data → features → regime → XGBoost → Ridge → backtest →
+  Optuna → metrics), and flags the vol_60 wrong-sign issue, the
+  defensives-over-winners holdings, the 0.70 weight-sum on the last
+  rebalance, and the 5-trial Optuna undersample. MomBased_Pt2.ipynb is
+  frozen per PROMPT2.md — will not be modified in any phase.
+
+  Phase 1 complete (results/Pt2_explanation.md, 2300-word deep-dive +
+  6-sentence exec summary). Phase 2 complete (results/Pt2_recommendations.md,
+  4 Tier-1 items, 3 Tier-2, 7 Tier-3). Phase 3 complete: built
+  MomBased_Pt3.ipynb (30 cells, executed end-to-end in ~4 min, outputs
+  saved inline). Implemented all four Tier-1 recommendations:
+    T1.1  vol_60 removed from predictors, moved into denominator of
+          risk-adjusted fwd-return target (floor 5% ann vol)
+    T1.2  added mom_6_1, mom_3_1, mom_accel, mom_21, ma_cross,
+          dist_52wk_high (total 8 features)
+    T1.3  regime thresholds calibrated to train-sample percentiles
+          (75/95 vol, 25/5 dd) — labels now 52/35/13% vs Pt2 75/18/7%
+    T1.4  150 Optuna trials with 3-fold purged walk-forward CV,
+          5-day embargo, added xgb_reg_lambda and xgb_max_depth to
+          search space
+  Tier-2 items (rank:pairwise, multi-horizon blend, turnover penalty)
+  deferred to preserve wall-clock budget. All Tier-3 items left as
+  documented in recommendations (outside Moderate change budget).
+
+  Pt3 final OOS (2022-01 -> 2026-04, held out from Optuna):
+    CAGR 6.01%  (Pt2 repro 8.11%,  bench 10.15%)
+    Sharpe 0.503  (Pt2 repro 0.612)
+    Max DD -13.1%  (Pt2 repro -20.8%  — 7.7 pp improvement)
+    Sortino 0.620, Calmar 0.458, IR -0.362, hit rate 37%,
+    avg turnover 1.26 across 27 rebalances, 4 kill-switches
+    CV-mean-Sharpe during search was 1.633 — large CV->OOS gap
+  Feature importance evenly distributed (10.9%-13.8% range, no single
+  feature dominant) — confirms the vol_60 defensiveness tilt is
+  structurally removed.
+
+  Phase 4 complete (results/Pt3_explanation.md, honest verdict: mixed
+  — Sharpe/CAGR worse, max DD meaningfully better). Included
+  "what still doesn't work" section flagging the CV/OOS gap and the
+  bull-run underperformance, and "what we deliberately didn't try"
+  section for Tier-3. Numbers reported as-is; no cherry-picking.
+
+  Deliverables (all 9 from PROMPT2.md checklist):
+    [x] results/Pt2_explanation.md
+    [x] results/Pt2_recommendations.md
+    [x] MomBased_Pt3.ipynb (executed, 74 KB)
+    [x] results/backtest_summary.png
+    [x] results/optuna_analysis.png
+    [x] results/best_params.txt
+    [x] results/pt3_vs_pt2_comparison.png
+    [x] results/Pt3_explanation.md
+    [x] MomBased_Pt2.ipynb UNCHANGED (size 69693, mtime 22:05 —
+        untouched since before Phase 1)
+---
+

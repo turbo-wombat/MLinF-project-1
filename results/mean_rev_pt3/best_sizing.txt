@@ -1,0 +1,34 @@
+MONTE CARLO BEST SHORT-LEG SIZING
+========================================
+s_trending     : 0.7436
+s_volatile     : 0.0347
+s_crash        : 0.4896
+
+Pt1 sizing (hand-picked):         (0.25, 1.00, 0.00)
+Pt1 val-period Sortino:           0.8205
+MC best val-period Sortino:       1.1005
+MC trials beating Pt1 val:        299/300  (99.7%)
+
+FROZEN PT1 OPTUNA PARAMS
+========================================
+rsi_period     : 2
+rebal_freq     : 2
+lambda_long    : 1.044844853178489
+lambda_short   : 0.5675080545635757
+top_n_long     : 20
+top_n_short    : 5
+gross_short    : 0.4
+gross_long     : 1.0
+cap_long       : 0.12
+cap_short      : 0.06
+
+TEST-PERIOD METRICS (2022-2026, held out)
+========================================
+sharpe              : 0.5465
+sortino             : 0.7947
+cagr_%              : 6.43
+bench_cagr_%        : 10.94
+max_drawdown_%      : -19.99
+cumulative_%        : 30.47
+long_leg_%          : 61.44
+short_leg_%         : -9.36

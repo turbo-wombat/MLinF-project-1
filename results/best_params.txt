@@ -1,0 +1,25 @@
+Pt3 BEST HYPERPARAMETERS  (Optuna TPE, purged walk-forward CV)
+============================================================
+rsi_period          : 21
+rebal_freq          : 8
+ridge_lambda        : 0.022384415995194563
+top_n               : 5
+xgb_reg_lambda      : 2.8448257540186543
+xgb_max_depth       : 3
+
+CV-Sharpe (mean of 3 folds): 1.6331
+
+FINAL OUT-OF-SAMPLE METRICS (2022-01 -> 2026-04)
+============================================================
+sharpe              : 0.5030
+sortino             : 0.6205
+calmar              : 0.4579
+info_ratio          : -0.3615
+cagr_%              : 6.01
+bench_cagr_%        : 10.15
+max_drawdown_%      : -13.12
+cumulative_%        : 28.11
+hit_rate            : 0.3704
+avg_turnover        : 1.2622
+n_rebals            : 27
+kill_switches       : 4

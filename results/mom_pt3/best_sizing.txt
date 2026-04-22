@@ -1,0 +1,26 @@
+MOMENTUM MONTE CARLO BEST REGIME SIZING
+========================================
+s_trending     : 0.5074
+s_volatile     : 0.9443
+s_crash        : 0.3324
+
+Pt2 sizing (hand-picked):         (1.00, 0.70, 0.00)
+Pt2 val-period Sharpe:            0.5860
+MC best val-period Sharpe:        0.7107
+MC trials beating Pt2 val:        184/300  (61.3%)
+
+FROZEN PT2 OPTUNA PARAMS
+========================================
+rsi_period     : 14
+rebal_freq     : 4
+ridge_lambda   : 0.012385137298860933
+top_n          : 12
+
+TEST-PERIOD METRICS (2022-2026, held out)
+========================================
+sharpe              : 0.5283
+cagr_%              : 6.31
+bench_cagr_%        : 10.94
+max_drawdown_%      : -22.59
+cumulative_%        : 29.81
+kill_switches       : 0
